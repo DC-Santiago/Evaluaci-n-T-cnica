@@ -6,12 +6,13 @@ package com.evaluacion_back.permisos.repository;
  */
 import com.evaluacion_back.permisos.entity.Modulo;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
+import java.util.Optional;
 
 public interface ModuloRepository extends JpaRepository<Modulo, Integer> {
 
-    List<Modulo> findByCorreo(String correo);
+    // Si en un futuro necesitas buscar un módulo por su nombre
+    Optional<Modulo> findByNombre(String nombre);
 
-    boolean existsByCorreo(String correo);
+    // Si necesitas validar si un módulo ya existe por su nombre
+    boolean existsByNombre(String nombre);
 }
