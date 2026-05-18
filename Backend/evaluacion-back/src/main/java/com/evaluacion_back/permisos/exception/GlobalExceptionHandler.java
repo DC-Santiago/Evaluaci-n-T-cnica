@@ -19,10 +19,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-public ResponseEntity<?> handleGeneral(Exception ex) {
-    ex.printStackTrace(); // 👈 Agrega esto para ver en la terminal de NetBeans qué línea exacta falló
-    return ResponseEntity
-            .status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body("Error interno del servidor");
-}
+    public ResponseEntity<?> handleGeneral(Exception ex) {
+        ex.printStackTrace();
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Error interno del servidor");
+    }
 }

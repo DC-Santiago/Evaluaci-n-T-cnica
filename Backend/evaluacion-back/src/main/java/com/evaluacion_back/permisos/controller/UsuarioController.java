@@ -1,5 +1,10 @@
 package com.evaluacion_back.permisos.controller;
 
+/**
+ *
+ * @author SantiagoDC
+ */
+
 import com.evaluacion_back.permisos.entity.Usuario;
 import com.evaluacion_back.permisos.repository.UsuarioRepository; 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +19,13 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository; 
 
-    // 🔹 GET: listar usuarios
+    //listar usuarios
     @GetMapping
     public List<Usuario> listar() {
         return usuarioRepository.findAll(); 
     }
 
-    // 🔹 POST: crear usuario
+    //crear usuario
     @PostMapping
     public Usuario crear(@RequestBody Usuario usuario) {
         return usuarioRepository.save(usuario); 

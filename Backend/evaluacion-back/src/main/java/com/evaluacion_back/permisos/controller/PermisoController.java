@@ -65,7 +65,7 @@ public class PermisoController {
         permisoService.eliminarPermiso(id);
     }
 
-    // 🔄 Mapper interno (simple y suficiente para prueba)
+    // Mapper interno
     private PermisoResponseDTO mapToDTO(Permiso p) {
         return PermisoResponseDTO.builder()
                 .id(p.getId())

@@ -19,7 +19,7 @@ public class UsuarioService {
 
     public Usuario crearUsuario(Usuario usuario) {
 
-        // 🔥 Validación clave
+
         if (usuarioRepository.existsByCorreo(usuario.getCorreo())) {
             throw new BusinessException("El correo ya está registrado");
         }

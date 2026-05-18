@@ -13,7 +13,7 @@ public class PermisoRequestDTO {
     private Boolean puedeLeer;
     private Boolean puedeEscribir;
 
-    // Métodos explícitos por si el IDE se pone rejego con Lombok
+
     public Boolean getPuedeLeer() {
         return puedeLeer;
     }

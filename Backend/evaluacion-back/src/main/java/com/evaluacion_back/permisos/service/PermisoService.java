@@ -34,12 +34,12 @@ public class PermisoService {
         Modulo modulo = moduloRepository.findById(moduloId)
                 .orElseThrow(() -> new BusinessException("Módulo no existe"));
 
-        // Valida duplicado
+
         if (permisoRepository.existsByUsuarioIdAndModuloId(usuarioId, moduloId)) {
             throw new BusinessException("El permiso ya existe para este usuario y módulo");
         }
 
-        //Regla de negocio importante
+      
         if (escribir && !leer) {
             throw new BusinessException("No se puede escribir sin permiso de lectura");
         }

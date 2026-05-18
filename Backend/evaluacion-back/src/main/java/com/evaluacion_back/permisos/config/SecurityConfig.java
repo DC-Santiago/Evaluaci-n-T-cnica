@@ -34,14 +34,14 @@ public class SecurityConfig {
 
         http
             .csrf(csrf -> csrf.disable())
-            // 1. MODIFICACIÓN: Configurar manejo de sesión sin estado (indispensable para APIs con JWT)
+            // Configura manejo de sesión sin estado
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
-            // 2. MODIFICACIÓN: Cambiar las reglas de autorización para pruebas libres
+            // Cambia las reglas de autorización para pruebas libres
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/login").permitAll()
-                .anyRequest().permitAll() // 👈 Cambiamos .authenticated() por .permitAll() temporalmente
+                .anyRequest().permitAll() 
             )
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 

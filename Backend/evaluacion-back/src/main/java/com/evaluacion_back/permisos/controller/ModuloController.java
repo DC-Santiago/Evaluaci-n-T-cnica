@@ -1,5 +1,10 @@
 package com.evaluacion_back.permisos.controller;
 
+/**
+ *
+ * @author SantiagoDC
+ */
+
 import com.evaluacion_back.permisos.entity.Modulo;
 import com.evaluacion_back.permisos.repository.ModuloRepository;
 import org.springframework.beans.factory.annotation.Autowired;

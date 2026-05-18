@@ -14,13 +14,13 @@ public class SistemaController {
     @Autowired
     private SistemaRepository sistemaRepository;
 
-    // 🔹 GET: Listar todos los sistemas
+    // Listar todos los sistemas
     @GetMapping
     public List<Sistema> listar() {
         return sistemaRepository.findAll();
     }
 
-    // 🔹 POST: Crear un nuevo sistema
+    // Crear un nuevo sistema
     @PostMapping
     public Sistema crear(@RequestBody Sistema sistema) {
         return sistemaRepository.save(sistema);
