@@ -20,7 +20,7 @@ public class PermisoController {
 
     private final PermisoService permisoService;
 
-    // ✅ Crear permiso
+    //  Crear permiso
     @PostMapping
     public PermisoResponseDTO crear(@RequestBody PermisoRequestDTO request) {
 
@@ -34,7 +34,7 @@ public class PermisoController {
         return mapToDTO(permiso);
     }
 
-    // ✅ Obtener permisos por usuario
+    // Obtener permisos por usuario
     @GetMapping("/usuario/{usuarioId}")
     public List<PermisoResponseDTO> obtenerPorUsuario(@PathVariable Integer usuarioId) {
 
@@ -44,7 +44,7 @@ public class PermisoController {
                 .toList();
     }
 
-    // ✅ Actualizar permiso
+    // Actualizar permiso
     @PutMapping("/{id}")
     public PermisoResponseDTO actualizar(
             @PathVariable Integer id,
@@ -59,7 +59,7 @@ public class PermisoController {
         return mapToDTO(permiso);
     }
 
-    // ❌ Eliminar permiso
+    // Eliminar permiso
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Integer id) {
         permisoService.eliminarPermiso(id);
