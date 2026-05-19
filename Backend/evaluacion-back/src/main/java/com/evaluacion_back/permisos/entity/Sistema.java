@@ -28,6 +28,7 @@ public class Sistema {
 
     private Boolean activo;
 
-    @OneToMany(mappedBy = "sistema", fetch = FetchType.LAZY)
+    
+    @OneToMany(mappedBy = "sistema", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Modulo> modulos;
 }

@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Modulo")
@@ -26,10 +27,11 @@ public class Modulo {
 
     private String descripcion;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    // permitiendo que Angular siga viendo los datos básicos del Sistema.
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sistema_id", nullable = false)
+    @JsonIgnoreProperties("modulos") 
     private Sistema sistema;
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "modulo", fetch = FetchType.LAZY)

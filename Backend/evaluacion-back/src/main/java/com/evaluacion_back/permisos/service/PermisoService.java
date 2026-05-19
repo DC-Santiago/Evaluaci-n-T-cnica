@@ -25,7 +25,7 @@ public class PermisoService {
     private final UsuarioRepository usuarioRepository;
     private final ModuloRepository moduloRepository;
 
-    //Crea permiso
+    // Crea permiso
     public Permiso asignarPermiso(Integer usuarioId, Integer moduloId, Boolean leer, Boolean escribir) {
 
         Usuario usuario = usuarioRepository.findById(usuarioId)
@@ -39,7 +39,6 @@ public class PermisoService {
             throw new BusinessException("El permiso ya existe para este usuario y módulo");
         }
 
-      
         if (escribir && !leer) {
             throw new BusinessException("No se puede escribir sin permiso de lectura");
         }
@@ -64,7 +63,15 @@ public class PermisoService {
         return permisoRepository.findPermisosConModuloYSistema(usuarioId);
     }
 
-    //Actualiza permiso
+    // 🎯 NUEVO: Obtiene permisos por módulo para listar usuarios con acceso
+    public List<Permiso> obtenerPermisosPorModulo(Integer moduloId) {
+        if (!moduloRepository.existsById(moduloId)) {
+            throw new BusinessException("Módulo no existe");
+        }
+        return permisoRepository.findByModuloId(moduloId); 
+    }
+
+    // Actualiza permiso
     public Permiso actualizarPermiso(Integer permisoId, Boolean leer, Boolean escribir) {
 
         Permiso permiso = permisoRepository.findById(permisoId)
@@ -80,7 +87,7 @@ public class PermisoService {
         return permisoRepository.save(permiso);
     }
 
-    //Eliminar permiso
+    // Eliminar permiso
     public void eliminarPermiso(Integer permisoId) {
 
         if (!permisoRepository.existsById(permisoId)) {

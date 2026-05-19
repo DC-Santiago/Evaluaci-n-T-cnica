@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
-// 🔹 Habilitamos CORS de forma explícita para el listado y guardado desde Angular
+// Habilitamos CORS de forma explícita para el listado y guardado desde Angular
 @CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController {
 

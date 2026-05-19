@@ -24,9 +24,13 @@ export class AuthService {
       );
   }
 
-  getToken() {
-    return localStorage.getItem('token');
+ getToken(): string | null {
+  
+  if (typeof window !== 'undefined' && window.localStorage) {
+    return localStorage.getItem('token'); 
   }
+  return null;
+}
 
   logout() {
     localStorage.removeItem('token');

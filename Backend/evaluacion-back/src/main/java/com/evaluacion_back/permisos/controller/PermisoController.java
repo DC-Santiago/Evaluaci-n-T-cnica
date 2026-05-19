@@ -16,13 +16,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/permisos")
 @RequiredArgsConstructor
-// 🔹 Habilitamos CORS de forma explícita para que Angular pueda gestionar la matriz de permisos
 @CrossOrigin(origins = "http://localhost:4200")
 public class PermisoController {
 
     private final PermisoService permisoService;
 
-    //  Crear permiso
+    // Crear permiso
     @PostMapping
     public PermisoResponseDTO crear(@RequestBody PermisoRequestDTO request) {
 
@@ -41,6 +40,15 @@ public class PermisoController {
     public List<PermisoResponseDTO> obtenerPorUsuario(@PathVariable Integer usuarioId) {
 
         return permisoService.obtenerPermisosUsuario(usuarioId)
+                .stream()
+                .map(this::mapToDTO)
+                .toList();
+    }
+
+    //Listar usuarios con acceso a un módulo específico y sus permisos
+    @GetMapping("/modulo/{moduloId}/usuarios")
+    public List<PermisoResponseDTO> obtenerUsuariosPorModulo(@PathVariable Integer moduloId) {
+        return permisoService.obtenerPermisosPorModulo(moduloId)
                 .stream()
                 .map(this::mapToDTO)
                 .toList();

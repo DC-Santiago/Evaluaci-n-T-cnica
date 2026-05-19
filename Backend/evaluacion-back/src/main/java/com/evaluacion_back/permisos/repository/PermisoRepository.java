@@ -27,4 +27,6 @@ public interface PermisoRepository extends JpaRepository<Permiso, Integer> {
         WHERE p.usuario.id = :usuarioId
     """)
     List<Permiso> findPermisosConModuloYSistema(@Param("usuarioId") Integer usuarioId);
+    
+    List<Permiso> findByModuloId(Integer moduloId);
 }
