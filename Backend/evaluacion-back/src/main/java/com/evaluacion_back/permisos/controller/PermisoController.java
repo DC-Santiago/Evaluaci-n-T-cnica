@@ -16,6 +16,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/permisos")
 @RequiredArgsConstructor
+// 🔹 Habilitamos CORS de forma explícita para que Angular pueda gestionar la matriz de permisos
+@CrossOrigin(origins = "http://localhost:4200")
 public class PermisoController {
 
     private final PermisoService permisoService;
@@ -59,7 +61,7 @@ public class PermisoController {
         return mapToDTO(permiso);
     }
 
-    // Eliminar permiso
+    // Eliminar permiso (Revocar)
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Integer id) {
         permisoService.eliminarPermiso(id);

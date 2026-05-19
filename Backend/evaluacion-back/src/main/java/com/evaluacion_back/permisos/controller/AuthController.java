@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+// 🔹 PASO 1: Habilitamos el acceso explícito a tu Frontend de Angular en el puerto 4200
+@CrossOrigin(origins = "http://localhost:4200") 
 public class AuthController {
 
     @Autowired
@@ -25,14 +27,16 @@ public class AuthController {
     @PostMapping("/login")
     public AuthResponse login(@RequestBody AuthRequest request) {
 
+        // 🔹 PASO 2: Ajustamos para usar los getters de tu DTO real (correo y contrasena)
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
+                        request.getCorreo(),      // 👈 Cambiado de getUsername()
+                        request.getContrasena()  // 👈 Cambiado de getPassword()
                 )
         );
 
-        String token = jwtUtil.generateToken(request.getUsername());
+        // Generamos el token amarrado al identificador único (su correo electrónico)
+        String token = jwtUtil.generateToken(request.getCorreo()); // 👈 Cambiado de getUsername()
 
         return new AuthResponse(token);
     }

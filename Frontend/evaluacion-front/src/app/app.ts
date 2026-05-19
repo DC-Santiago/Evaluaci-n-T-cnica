@@ -1,12 +1,14 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+// src/app/app.ts
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router'; // 👈 Importante añadir esta línea
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  standalone: true,
+  imports: [RouterOutlet], // 👈 Asegúrate de incluirlo en este arreglo
+  templateUrl: './app.html', // Vinculado a tu archivo app.html
+  styleUrl: './app.css'      // Vinculado a tu archivo app.css
 })
-export class App {
-  protected readonly title = signal('evaluacion-front');
+export class AppComponent {
+  title = 'evaluacion-front';
 }

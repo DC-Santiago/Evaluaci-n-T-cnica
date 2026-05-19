@@ -1,0 +1,82 @@
+<div style="max-width: 1000px; margin: 40px auto; padding: 20px; font-family: sans-serif;">
+  
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2>Control de Usuarios y Accesos</h2>
+    <button (click)="usuarios = []; filtro = '';" style="padding: 8px 15px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Cerrar Sesión</button>
+  </div>
+
+  <div style="margin-bottom: 20px;">
+    <input 
+      type="text" 
+      [(ngModel)]="filtro" 
+      placeholder="Buscar usuario por nombre o correo electrónico..." 
+      style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px;"
+    />
+  </div>
+
+  @if (loading) {
+    <div style="text-align: center; padding: 40px; color: #007bff; font-size: 18px;">
+      🔄 Cargando listado de usuarios desde SQL Server...
+    </div>
+  }
+
+  @if (error) {
+    <div style="background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 6px; text-align: center;">
+      ⚠️ Ocurrió un error al conectar con la API de Spring Boot. Verifica que el servidor esté activo.
+    </div>
+  }
+
+  @if (!loading && !error) {
+    <table style="width: 100%; border-collapse: collapse; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-radius: 6px; overflow: hidden;">
+      <thead>
+        <tr style="background-color: #007bff; color: white; text-align: left;">
+          <th style="padding: 12px;">Nombre</th>
+          <th style="padding: 12px;">Correo Electrónico</th>
+          <th style="padding: 12px;">Estado</th>
+          <th style="padding: 12px;">Sistemas Activos</th>
+          <th style="padding: 12px; text-align: center;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (u of usuariosFiltrados(); track u.id) {
+          <tr style="border-bottom: 1px solid #eee; background-color: white;">
+            <td style="padding: 12px; font-weight: bold; color: #333;">{{ u.nombre }}</td>
+            <td style="padding: 12px; color: #555;">{{ u.correo }}</td>
+            <td style="padding: 12px;">
+              <span [style.background-color]="u.activo ? '#d4edda' : '#f8d7da'" 
+                    [style.color]="u.activo ? '#155724' : '#721c24'"
+                    style="padding: 4px 8px; border-radius: 12px; font-size: 13px; font-weight: bold;">
+                {{ u.activo ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td style="padding: 12px;">
+              <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                @for (p of u.permisos; track p.id) {
+                  <span style="background-color: #e2e8f0; color: #4a5568; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; border: 1px solid #cbd5e1;">
+                    💻 {{ p.modulo?.sistema?.nombre || 'Sistema' }}
+                  </span>
+                } @empty {
+                  <span style="color: #999; font-style: italic; font-size: 13px;">Sin accesos activos</span>
+                }
+              </div>
+            </td>
+            <td style="padding: 12px; text-align: center;">
+              <button 
+                (click)="verDetalle(u.id)"
+                style="padding: 6px 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px;"
+              >
+                Gestionar Permisos
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" style="padding: 30px; text-align: center; color: #777; font-style: italic;">
+              No se encontraron usuarios que coincidan con la búsqueda.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

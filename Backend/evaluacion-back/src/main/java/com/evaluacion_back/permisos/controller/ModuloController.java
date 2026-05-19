@@ -14,6 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/modulos")
+// 🔹 Permitimos la manipulación de módulos desde la aplicación Angular
+@CrossOrigin(origins = "http://localhost:4200")
 public class ModuloController {
 
     @Autowired
@@ -28,6 +30,18 @@ public class ModuloController {
     // 🔹 POST: Crear un nuevo módulo
     @PostMapping
     public Modulo crear(@RequestBody Modulo modulo) {
+        return moduloRepository.save(modulo);
+    }
+
+
+    @PutMapping("/{id}")
+    public Modulo actualizar(@PathVariable Integer id, @RequestBody Modulo moduloDetalles) {
+        Modulo modulo = moduloRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Módulo no encontrado con ID: " + id));
+        
+        modulo.setNombre(moduloDetalles.getNombre());
+        modulo.setSistema(moduloDetalles.getSistema());
+        
         return moduloRepository.save(modulo);
     }
 }
